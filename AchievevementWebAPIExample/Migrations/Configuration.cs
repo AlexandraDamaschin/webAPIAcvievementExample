@@ -24,25 +24,12 @@ namespace AchievevementWebAPIExample.Migrations
         protected override void Seed(AchievevementWebAPIExample.Models.ApplicationDbContext context)
         {
 
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-
             context.Games.AddOrUpdate(g => g.GameName,
                 new Game { GameName = "Battle Call" },
                 new Game { GameName = "Pong" });
 
             context.SaveChanges();
-
+            #region create players
             Random r = new Random();
             PasswordHasher hasher = new PasswordHasher();
             context.Users.AddOrUpdate(u => u.UserName,
@@ -120,25 +107,68 @@ namespace AchievevementWebAPIExample.Migrations
                 }
                 );
             context.SaveChanges();
+            #endregion
+
+            #region create games and scores
             List<GameScore> scores = new List<GameScore>();
             Game bg = context.Games.FirstOrDefault(battle => battle.GameName == "Battle Call");
             if (bg != null)
             {
-                foreach(ApplicationUser player in context.Users)
+                foreach (ApplicationUser player in context.Users)
                 {
                     //context.GameScores.AddOrUpdate(score => score.PlayerID,
-                       scores.Add(new GameScore
-                       { PlayerID = player.Id,
-                           score = r.Next(1200),
-                           GameID = bg.GameID }
-                       );
+                    scores.Add(new GameScore
+                    {
+                        PlayerID = player.Id,
+                        score = r.Next(1200),
+                        GameID = bg.GameID
+                    }
+                    );
                 }
                 context.GameScores.AddOrUpdate(score => score.PlayerID,
                     scores.ToArray());
 
                 context.SaveChanges();
             }
+                #endregion
 
+                Achievement[] achievements = new Achievement[14];
+                for (int i = 0; i < 14; i++)
+                {
+                    achievements[i] = new Achievement { Name = "Badges_" + i.ToString() };
+                }
+                context.Achievements.AddOrUpdate(a => a.Name,
+                    achievements
+                    );
+                context.SaveChanges();
+
+                List<PlayerAchievement> _playerAchviements = new List<PlayerAchievement>();
+
+                foreach (ApplicationUser player in context.Users)
+                {
+                    var acs = (from ac in context.Achievements
+                               select new
+                               {
+                                   ac.ID,
+                                   localid = Guid.NewGuid()
+                               }).OrderBy(q => q.localid).ToList();
+
+                    var topFiveAchiements = acs.Select(ac => ac.ID).Take(5);
+
+                    foreach(var achievementID in topFiveAchiements)
+                    {
+                        _playerAchviements.Add(new
+                            PlayerAchievement
+                        { PlayerID = player.Id, AchievementID = achievementID });
+                    }
+                }
+                context.PlayerAchievements.AddOrUpdate(
+                            rep => new { rep.PlayerID, rep.AchievementID },
+                            _playerAchviements.ToArray()
+                            );
+
+            
+            context.SaveChanges();
         }
     }
 }

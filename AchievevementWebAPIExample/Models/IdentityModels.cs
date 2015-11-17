@@ -27,7 +27,7 @@ namespace AchievevementWebAPIExample.Models
     }
 
     [Table("Achievement")]
-    public class Achievemnent
+    public class Achievement
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -46,7 +46,7 @@ namespace AchievevementWebAPIExample.Models
         public int AchievementID { get; set; }
         [ForeignKey("player")]
         public string PlayerID { get; set; }
-        public virtual Achievemnent achievement { get; set; }
+        public virtual Achievement achievement { get; set; }
         public virtual ApplicationUser player { get; set; }
     }
 
@@ -96,6 +96,10 @@ namespace AchievevementWebAPIExample.Models
         }
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<GameScore> GameScores { get; set; }
+
+        public virtual DbSet<PlayerAchievement> PlayerAchievements { get; set; }
+        public virtual DbSet<Achievement> Achievements { get; set; }
+
 
         public static ApplicationDbContext Create()
         {
