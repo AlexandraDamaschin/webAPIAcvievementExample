@@ -13,7 +13,7 @@ namespace AchievevementWebAPIExample.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201511171036227_Initial Migration"; }
+            get { return "201511221427442_Initial Migration"; }
         }
         
         string IMigrationMetadata.Source

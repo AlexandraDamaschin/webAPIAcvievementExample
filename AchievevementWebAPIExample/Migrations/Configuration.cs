@@ -141,12 +141,15 @@ namespace AchievevementWebAPIExample.Migrations
                     achievements
                     );
                 context.SaveChanges();
-
-                List<PlayerAchievement> _playerAchviements = new List<PlayerAchievement>();
-
-                foreach (ApplicationUser player in context.Users)
+            // Get a copy of the current players and Achievements as you cannot work on more than one
+            // Data set in the one context
+            List<Achievement> _achviements = context.Achievements.ToList();
+            List<ApplicationUser> _players = context.Users.ToList();
+            // A list to hold the new player acheivements
+            List<PlayerAchievement> _playerAchievements = new List<PlayerAchievement>();
+                foreach (ApplicationUser player in _players)
                 {
-                    var acs = (from ac in context.Achievements
+                    var acs = (from ac in _achviements
                                select new
                                {
                                    ac.ID,
@@ -157,14 +160,14 @@ namespace AchievevementWebAPIExample.Migrations
 
                     foreach(var achievementID in topFiveAchiements)
                     {
-                        _playerAchviements.Add(new
+                        _playerAchievements.Add(new
                             PlayerAchievement
                         { PlayerID = player.Id, AchievementID = achievementID });
                     }
                 }
                 context.PlayerAchievements.AddOrUpdate(
                             rep => new { rep.PlayerID, rep.AchievementID },
-                            _playerAchviements.ToArray()
+                            _playerAchievements.ToArray()
                             );
 
             
