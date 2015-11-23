@@ -13,7 +13,7 @@ namespace AchievevementWebAPIExample.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "cgMonoGameServer2015.Models.ApplicationDbContext";
+            ContextKey = "AchievevementWebAPIExample.Models.ApplicationDbContext";
         }
         int _usercounter = 0;
         public int Counter { get { return _usercounter++; } }
