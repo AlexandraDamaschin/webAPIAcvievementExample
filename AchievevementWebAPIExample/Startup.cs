@@ -12,6 +12,7 @@ namespace AchievevementWebAPIExample
     {
         public void Configuration(IAppBuilder app)
         {
+            // trigger new deploy
             ConfigureAuth(app);
         }
     }
