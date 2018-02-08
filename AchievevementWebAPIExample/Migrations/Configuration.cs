@@ -21,6 +21,8 @@ namespace AchievevementWebAPIExample.Migrations
         int _emailCounter = 0;
         public int EmailCounter { get { return _emailCounter++; } }
 
+        
+
         protected override void Seed(AchievevementWebAPIExample.Models.ApplicationDbContext context)
         {
 
@@ -36,9 +38,10 @@ namespace AchievevementWebAPIExample.Migrations
                 new ApplicationUser
                 {
                     XP = r.Next(400),
-                    UserName = "User " + Counter.ToString() + "@itsligo.ie",
-                    Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
+                    UserName = "User" + Counter.ToString() + "@itsligo.ie",
+                    Email = "User" + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(), 
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                     
@@ -49,6 +52,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 },
@@ -58,6 +62,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 },
@@ -67,6 +72,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 },
@@ -75,6 +81,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 },
@@ -84,6 +91,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 },
@@ -93,6 +101,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 },
@@ -102,6 +111,7 @@ namespace AchievevementWebAPIExample.Migrations
                     UserName = "User " + Counter.ToString() + "@itsligo.ie",
                     Email = "User " + EmailCounter.ToString() + "@itsligo.ie",
                     EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     GamerTag = "GamerTag" + _usercounter.ToString(),
                     PasswordHash = hasher.HashPassword("GamerTag" + _usercounter.ToString()),
                 }
